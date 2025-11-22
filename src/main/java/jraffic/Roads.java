@@ -56,12 +56,11 @@ public class Roads {
     }
 
     public void draw(Pane pane) {
-        pane.getChildren().addAll(this.leftVerticalLine, 
-        this.centerVerticalLine, 
-        this.rightVerticalLine, 
-        this.leftHorizontalLine,
-        this.centerHorizontalLine,
-        this.rightHorizontalLine
-        );
+        pane.getChildren().addAll(this.leftVerticalLine,
+                this.centerVerticalLine,
+                this.rightVerticalLine,
+                this.leftHorizontalLine,
+                this.centerHorizontalLine,
+                this.rightHorizontalLine);
     }
 }

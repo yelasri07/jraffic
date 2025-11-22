@@ -32,7 +32,7 @@ public class Light {
     }
 
     public void draw(Pane pane) {
-        for (Light light:lights) {
+        for (Light light : lights) {
             Rectangle box = new Rectangle(App.GAP, App.GAP, light.color);
             box.setTranslateX(light.point.x);
             box.setTranslateY(light.point.y);
