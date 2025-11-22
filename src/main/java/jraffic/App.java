@@ -1,36 +1,46 @@
 package jraffic;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
-    public static int WIDTH = 900;
-    public static int HEIGHT = 700;
-    
-    private static Scene scene;
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 700;
+    public static final int GAP = 50;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 900, 700);
+        Pane pane = new Pane();
+
+        Roads roads = new Roads();
+        roads.draw(pane);
+
+        Scene scene = new Scene(pane, WIDTH, HEIGHT, Color.BLACK);
+
+        scene.setOnKeyPressed(e -> {
+            String key = e.getCode().toString();
+            switch (key) {
+                case "UP":
+                    new Car(new Point(WIDTH / 2, HEIGHT - GAP));
+                    break;
+                case "DOWN": 
+                    new Car(new Point(50, 90));
+                    break;
+                case "LEFT":
+                    new Car(new Point(50, 90));
+                    break;
+                case "RIGHT": 
+                    new Car(new Point(50, 90));
+                    break;
+            }
+        });
+        
         stage.setScene(scene);
         stage.show();
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
