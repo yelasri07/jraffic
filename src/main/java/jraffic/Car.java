@@ -10,21 +10,24 @@ import javafx.scene.shape.Rectangle;
 public class Car {
     public Point point;
     public static List<Car> cars = new ArrayList<>();
+    private Rectangle box;
 
-    public Car(Point point) {
+    public Car(Point point, Pane pane) {
         this.point = point;
+        box = new Rectangle(App.GAP, App.GAP, Color.BLUE);
+        pane.getChildren().add(box);
         cars.add(this);
     }
 
-    public void draw(Pane pane) {
-        for (Car car:cars) {
-            System.out.println(String.format("x = %f | y = %f", car.point.x, car.point.y));
-            Rectangle box = new Rectangle(App.GAP, App.GAP, Color.BLUE);
-            box.setTranslateX(car.point.x);
-            box.setTranslateY(car.point.y);
-            pane.getChildren().add(box);
-        }
+    public void draw() {
+        box.setTranslateX(this.point.x);
+        box.setTranslateY(this.point.y);
+    }
 
-        System.out.println("-----------------------------------------");
+    public static void update() {
+        for (Car car:cars) {
+            car.point.y--;
+            car.draw();
+        }
     }
 }

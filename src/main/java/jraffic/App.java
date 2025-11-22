@@ -1,5 +1,6 @@
 package jraffic;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -28,24 +29,33 @@ public class App extends Application {
             String key = e.getCode().toString();
             switch (key) {
                 case "UP":
-                    Car car = new Car(new Point(WIDTH / 2, HEIGHT - GAP));
-                    car.draw(pane);
+                    Car car = new Car(new Point(WIDTH / 2, HEIGHT - GAP), pane);
+                    car.draw();
                     break;
                 case "DOWN": 
-                    Car car2 = new Car(new Point((WIDTH / 2) - GAP, 0));
-                    car2.draw(pane);
+                    Car car2 = new Car(new Point((WIDTH / 2) - GAP, 0), pane);
+                    car2.draw();
                     break;
                 case "LEFT":
-                    Car car3 = new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP));
-                    car3.draw(pane);
+                    Car car3 = new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP), pane);
+                    car3.draw();
                     break;
                 case "RIGHT": 
-                    Car car4 = new Car(new Point(0, HEIGHT / 2));
-                    car4.draw(pane);
+                    Car car4 = new Car(new Point(0, HEIGHT / 2), pane);
+                    car4.draw();
                     break;
             }
             
         });
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                Car.update();
+            }
+        };
+
+        timer.start();
         
         stage.setScene(scene);
         stage.setResizable(false);
