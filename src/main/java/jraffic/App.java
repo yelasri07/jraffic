@@ -29,16 +29,24 @@ public class App extends Application {
             String key = e.getCode().toString();
             switch (key) {
                 case "UP":
-                    new Car(new Point(WIDTH / 2, HEIGHT - GAP), Direction.South, pane);
+                    Point p1 = new Point(WIDTH / 2, HEIGHT - GAP);
+                    if  (!Car.isSafePosition(p1, Direction.South)) break;;
+                    new Car(p1, Direction.South, pane);
                     break;
                 case "DOWN":
-                    new Car(new Point((WIDTH / 2) - GAP, 0), Direction.North, pane);
+                    Point p2 = new Point((WIDTH / 2) - GAP, 0);
+                    if  (!Car.isSafePosition(p2, Direction.North)) break;;
+                    new Car(p2, Direction.North, pane);
                     break;
                 case "LEFT":
-                    new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP), Direction.West, pane);
+                    Point p3 = new Point(WIDTH - GAP, (HEIGHT / 2) - GAP);
+                    if  (!Car.isSafePosition(p3, Direction.West)) break;;
+                    new Car(p3, Direction.West, pane);
                     break;
                 case "RIGHT":
-                    new Car(new Point(0, HEIGHT / 2), Direction.East, pane);
+                    Point p4 = new Point(0, HEIGHT / 2);
+                    if  (!Car.isSafePosition(p4, Direction.East)) break;;
+                    new Car(p4, Direction.East, pane);
                     break;
             }
         });
