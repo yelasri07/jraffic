@@ -11,22 +11,37 @@ public class Car {
     public Point point;
     public static List<Car> cars = new ArrayList<>();
     private Rectangle box;
+    private Direction direction;
 
-    public Car(Point point, Pane pane) {
+    public Car(Point point, Direction direction, Pane pane) {
         this.point = point;
+        this.direction = direction;
         box = new Rectangle(App.GAP, App.GAP, Color.BLUE);
         pane.getChildren().add(box);
         cars.add(this);
     }
 
     public void draw() {
-        box.setTranslateX(this.point.x);
-        box.setTranslateY(this.point.y);
+        this.box.setTranslateX(this.point.x);
+        this.box.setTranslateY(this.point.y);
     }
 
     public static void update() {
         for (Car car:cars) {
-            car.point.y--;
+            switch (car.direction) {
+                case South:
+                    car.point.y--;
+                    break;
+                case North:
+                    car.point.y++;
+                    break;  
+                case West: 
+                    car.point.x--;
+                    break;
+                case East:
+                    car.point.x++;
+                    break;
+            }
             car.draw();
         }
     }

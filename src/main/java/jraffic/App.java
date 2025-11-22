@@ -29,23 +29,18 @@ public class App extends Application {
             String key = e.getCode().toString();
             switch (key) {
                 case "UP":
-                    Car car = new Car(new Point(WIDTH / 2, HEIGHT - GAP), pane);
-                    car.draw();
+                    new Car(new Point(WIDTH / 2, HEIGHT - GAP), Direction.South, pane);
                     break;
-                case "DOWN": 
-                    Car car2 = new Car(new Point((WIDTH / 2) - GAP, 0), pane);
-                    car2.draw();
+                case "DOWN":
+                    new Car(new Point((WIDTH / 2) - GAP, 0), Direction.North, pane);
                     break;
                 case "LEFT":
-                    Car car3 = new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP), pane);
-                    car3.draw();
+                    new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP), Direction.West, pane);
                     break;
-                case "RIGHT": 
-                    Car car4 = new Car(new Point(0, HEIGHT / 2), pane);
-                    car4.draw();
+                case "RIGHT":
+                    new Car(new Point(0, HEIGHT / 2), Direction.East, pane);
                     break;
             }
-            
         });
 
         AnimationTimer timer = new AnimationTimer() {
@@ -56,7 +51,7 @@ public class App extends Application {
         };
 
         timer.start();
-        
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

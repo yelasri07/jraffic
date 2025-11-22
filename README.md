@@ -1,0 +1,1 @@
+/usr/bin/env /usr/lib/jvm/java-17-openjdk-amd64/bin/java @/tmp/cp_9m2zd4mz14o0oeccodh7kg9r7.argfile -m jraffic/jraffic.App 
