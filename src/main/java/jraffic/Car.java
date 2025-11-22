@@ -13,7 +13,6 @@ public class Car {
 
     public Car(Point point) {
         this.point = point;
-        
         cars.add(this);
     }
 

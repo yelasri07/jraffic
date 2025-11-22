@@ -19,6 +19,9 @@ public class App extends Application {
         Roads roads = new Roads();
         roads.draw(pane);
 
+        Light light = new Light();
+        light.draw(pane);
+
         Scene scene = new Scene(pane, WIDTH, HEIGHT, Color.BLACK);
 
         scene.setOnKeyPressed(e -> {
@@ -45,6 +48,7 @@ public class App extends Application {
         });
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
