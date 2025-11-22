@@ -25,18 +25,23 @@ public class App extends Application {
             String key = e.getCode().toString();
             switch (key) {
                 case "UP":
-                    new Car(new Point(WIDTH / 2, HEIGHT - GAP));
+                    Car car = new Car(new Point(WIDTH / 2, HEIGHT - GAP));
+                    car.draw(pane);
                     break;
                 case "DOWN": 
-                    new Car(new Point(50, 90));
+                    Car car2 = new Car(new Point((WIDTH / 2) - GAP, 0));
+                    car2.draw(pane);
                     break;
                 case "LEFT":
-                    new Car(new Point(50, 90));
+                    Car car3 = new Car(new Point(WIDTH - GAP, (HEIGHT / 2) - GAP));
+                    car3.draw(pane);
                     break;
                 case "RIGHT": 
-                    new Car(new Point(50, 90));
+                    Car car4 = new Car(new Point(0, HEIGHT / 2));
+                    car4.draw(pane);
                     break;
             }
+            
         });
         
         stage.setScene(scene);
