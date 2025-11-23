@@ -1,5 +1,8 @@
 package jraffic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -12,10 +15,17 @@ public class Roads {
     private Line centerHorizontalLine;
     private Line rightHorizontalLine;
 
+    public static Map<Direction, Integer> numberCars = new HashMap<>();
+
     public Roads() {
         int width = App.WIDTH;
         int height = App.HEIGHT;
         int gap = App.GAP;
+
+        numberCars.put(Direction.East, 0);
+        numberCars.put(Direction.West, 0);
+        numberCars.put(Direction.South, 0);
+        numberCars.put(Direction.North, 0);
 
         Point p1 = new Point((width / 2) - gap, 0);
         Point p2 = new Point((width / 2) - gap, height);

@@ -2,6 +2,7 @@ package jraffic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -42,6 +43,34 @@ public class Light {
     }
 
     public static void update() {
+        for (Light light : lights) {
+            light.state = false;
+        }
+
+        int maxCars = 0;
+        Direction greenLightRoute = Direction.North;
+        for (Map.Entry<Direction, Integer> nc : Roads.numberCars.entrySet()) {
+            Direction key = nc.getKey();
+            int value = nc.getValue();
+            if (value > maxCars) {
+                maxCars = value;
+                greenLightRoute = key;
+            }
+        }
+
+        int index = -1;
+        if (greenLightRoute == Direction.West) {
+            index = 1;
+        } else if (greenLightRoute == Direction.East) {
+            index = 2;
+        } else if (greenLightRoute == Direction.South) {
+            index = 3;
+        } else if (greenLightRoute == Direction.North) {
+            index = 0;
+        }
+
+        lights.get(index).state = true;
+
         for (Light light : lights) {
             if (light.state == true) {
                 light.color = Color.GREEN;

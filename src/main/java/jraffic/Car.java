@@ -25,6 +25,8 @@ public class Car {
         this.id = cars.size();
         this.isPassed = false;
 
+        Roads.numberCars.put(direction, Roads.numberCars.get(direction) + 1);
+
         int randomRout = (int) Math.round(Math.random() * 2);
         if (randomRout == 0) {
             this.route = Route.LEFT;
@@ -48,20 +50,30 @@ public class Car {
     }
 
     public static void update() {
-        // List<Light> lights = Light.lights;
+
+        System.out.println(Roads.numberCars);
 
         for (Car car : cars) {
+            int nbCars = Roads.numberCars.get(car.direction);
+
             switch (car.direction) {
                 case South:
-                    if (!car.isPassed && (!isSafePosition(car, car.direction) || (car.point.y <= (App.HEIGHT / 2) + App.GAP))) {
+                    if (!car.isPassed && !Light.lights.get(3).state
+                            && (!isSafePosition(car, car.direction) || (car.point.y <= (App.HEIGHT / 2) + App.GAP))) {
                         break;
                     }
 
                     car.point.y--;
+
+                    if (!car.isPassed && car.point.y <= (App.HEIGHT / 2)) {
+                        if (nbCars > 0)
+                            Roads.numberCars.put(car.direction, nbCars - 1);
+                        car.isPassed = true;
+                    }
+
                     if (car.route == Route.LEFT && car.point.y + App.GAP <= App.HEIGHT / 2) {
                         car.direction = Direction.West;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.y <= App.HEIGHT / 2) {
                         car.direction = Direction.East;
                         car.route = Route.STRAIGHT;
@@ -69,39 +81,69 @@ public class Car {
                     }
                     break;
                 case North:
+                    if (!car.isPassed && !Light.lights.get(0).state && (!isSafePosition(car, car.direction)
+                            || (car.point.y + App.GAP >= (App.HEIGHT / 2) - App.GAP))) {
+                        break;
+                    }
+
                     car.point.y++;
+
+                    if (!car.isPassed && car.point.y + App.GAP >= (App.HEIGHT / 2)) {
+                        if (nbCars > 0)
+                            Roads.numberCars.put(car.direction, nbCars - 1);
+                        car.isPassed = true;
+                    }
+
                     if (car.route == Route.LEFT && car.point.y >= App.HEIGHT / 2) {
                         car.direction = Direction.East;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.y + App.GAP >= App.HEIGHT / 2) {
                         car.direction = Direction.West;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     }
                     break;
                 case West:
+                    if (!car.isPassed && !Light.lights.get(1).state
+                            && (!isSafePosition(car, car.direction) || (car.point.x <= (App.WIDTH / 2) + App.GAP))) {
+                        break;
+                    }
+
                     car.point.x--;
+
+                    if (!car.isPassed && car.point.x <= (App.WIDTH / 2)) {
+                        if (nbCars > 0)
+                            Roads.numberCars.put(car.direction, nbCars - 1);
+                        car.isPassed = true;
+                    }
+
                     if (car.route == Route.LEFT && car.point.x + App.GAP <= App.WIDTH / 2) {
                         car.direction = Direction.North;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.x <= App.WIDTH / 2) {
                         car.direction = Direction.South;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     }
                     break;
                 case East:
+                    if (!car.isPassed && !Light.lights.get(2).state && (!isSafePosition(car, car.direction)
+                            || (car.point.x + App.GAP >= (App.WIDTH / 2) - App.GAP))) {
+                        break;
+                    }
+
                     car.point.x++;
+
+                    if (!car.isPassed && car.point.x + App.GAP >= (App.WIDTH / 2)) {
+                        if (nbCars > 0)
+                            Roads.numberCars.put(car.direction, nbCars - 1);
+                        car.isPassed = true;
+                    }
+
                     if (car.route == Route.LEFT && car.point.x >= App.WIDTH / 2) {
                         car.direction = Direction.South;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.x + App.GAP >= App.WIDTH / 2) {
                         car.direction = Direction.North;
                         car.route = Route.STRAIGHT;
-                        car.isPassed = true;
                     }
                     break;
             }
@@ -131,9 +173,12 @@ public class Car {
 
     public static boolean isSafePosition(Car currentCar, Direction direction) {
         for (Car car : cars) {
-            if (direction == Direction.South && car.direction == Direction.South && currentCar.id > car.id
+            if (!(currentCar.id > car.id))
+                continue;
+
+            if (direction == Direction.South && car.direction == Direction.South
                     && currentCar.point.y < car.point.y + GAP_BETWEEN_CARS) {
-                        
+
                 return false;
             } else if (direction == Direction.North && car.direction == Direction.North
                     && currentCar.point.y + GAP_BETWEEN_CARS > car.point.y) {
