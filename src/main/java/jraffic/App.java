@@ -43,6 +43,8 @@ public class App extends Application {
                 case "R":
                     Car.random(pane);
                     break;
+                case "ESCAPE":
+                    System.exit(0);
             }
         });
 

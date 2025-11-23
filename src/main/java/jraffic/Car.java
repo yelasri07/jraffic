@@ -48,15 +48,43 @@ public class Car {
             switch (car.direction) {
                 case South:
                     car.point.y--;
+                    if (car.route == Route.LEFT && car.point.y + App.GAP <= App.HEIGHT / 2) {
+                        car.direction = Direction.West;
+                        car.route = Route.STRAIGHT;
+                    } else if (car.route == Route.RIGHT && car.point.y <= App.HEIGHT / 2) {
+                        car.direction = Direction.East;
+                        car.route = Route.STRAIGHT;
+                    }
                     break;
                 case North:
                     car.point.y++;
+                    if (car.route == Route.LEFT && car.point.y >= App.HEIGHT / 2) {
+                        car.direction = Direction.East;
+                        car.route = Route.STRAIGHT;
+                    } else if (car.route == Route.RIGHT && car.point.y + App.GAP >= App.HEIGHT / 2) {
+                        car.direction = Direction.West;
+                        car.route = Route.STRAIGHT;
+                    }
                     break;
                 case West:
                     car.point.x--;
+                    if (car.route == Route.LEFT && car.point.x + App.GAP <= App.WIDTH / 2) {
+                        car.direction = Direction.North;
+                        car.route = Route.STRAIGHT;
+                    } else if (car.route == Route.RIGHT && car.point.x <= App.WIDTH / 2) {
+                        car.direction = Direction.South;
+                        car.route = Route.STRAIGHT;
+                    }
                     break;
                 case East:
                     car.point.x++;
+                    if (car.route == Route.LEFT && car.point.x >= App.WIDTH / 2) {
+                        car.direction = Direction.South;
+                        car.route = Route.STRAIGHT;
+                    } else if (car.route == Route.RIGHT && car.point.x + App.GAP >= App.WIDTH / 2) {
+                        car.direction = Direction.North;
+                        car.route = Route.STRAIGHT;
+                    }
                     break;
             }
             car.draw();
@@ -65,13 +93,17 @@ public class Car {
 
     public static boolean isSafePosition(Point point, Direction direction) {
         for (Car car : cars) {
-            if (direction == Direction.South && point.y < car.point.y + GAP_BETWEEN_CARS) {
+            if (direction == Direction.South && car.direction == Direction.South
+                    && point.y < car.point.y + GAP_BETWEEN_CARS) {
                 return false;
-            } else if (direction == Direction.North && point.y + GAP_BETWEEN_CARS > car.point.y) {
+            } else if (direction == Direction.North && car.direction == Direction.North
+                    && point.y + GAP_BETWEEN_CARS > car.point.y) {
                 return false;
-            } else if (direction == Direction.East && point.x + GAP_BETWEEN_CARS > car.point.x) {
+            } else if (direction == Direction.East && car.direction == Direction.East
+                    && point.x + GAP_BETWEEN_CARS > car.point.x) {
                 return false;
-            } else if (direction == Direction.West && point.x < car.point.x + GAP_BETWEEN_CARS) {
+            } else if (direction == Direction.West && car.direction == Direction.West
+                    && point.x < car.point.x + GAP_BETWEEN_CARS) {
                 return false;
             }
         }

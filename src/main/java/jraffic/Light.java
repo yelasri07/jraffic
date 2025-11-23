@@ -33,9 +33,10 @@ public class Light {
 
     public void draw(Pane pane) {
         for (Light light : lights) {
-            Rectangle box = new Rectangle(App.GAP, App.GAP, light.color);
+            Rectangle box = new Rectangle(App.GAP, App.GAP);
             box.setTranslateX(light.point.x);
             box.setTranslateY(light.point.y);
+            box.setStroke(light.color);
             pane.getChildren().add(box);
         }
     }
