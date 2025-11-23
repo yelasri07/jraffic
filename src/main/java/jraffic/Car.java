@@ -14,6 +14,7 @@ public class Car {
     private Direction direction;
     private Route route;
     private Color color;
+    private boolean isPassed;
 
     private static final int GAP_BETWEEN_CARS = 70;
     public static List<Car> cars = new ArrayList<>();
@@ -22,6 +23,7 @@ public class Car {
         this.point = point;
         this.direction = direction;
         this.id = cars.size();
+        this.isPassed = false;
 
         int randomRout = (int) Math.round(Math.random() * 2);
         if (randomRout == 0) {
@@ -51,7 +53,7 @@ public class Car {
         for (Car car : cars) {
             switch (car.direction) {
                 case South:
-                    if (!isSafePosition(car, car.direction) || (car.point.y <= (App.HEIGHT / 2) + App.GAP)) {
+                    if (!car.isPassed && (!isSafePosition(car, car.direction) || (car.point.y <= (App.HEIGHT / 2) + App.GAP))) {
                         break;
                     }
 
@@ -59,9 +61,11 @@ public class Car {
                     if (car.route == Route.LEFT && car.point.y + App.GAP <= App.HEIGHT / 2) {
                         car.direction = Direction.West;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.y <= App.HEIGHT / 2) {
                         car.direction = Direction.East;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     }
                     break;
                 case North:
@@ -69,9 +73,11 @@ public class Car {
                     if (car.route == Route.LEFT && car.point.y >= App.HEIGHT / 2) {
                         car.direction = Direction.East;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.y + App.GAP >= App.HEIGHT / 2) {
                         car.direction = Direction.West;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     }
                     break;
                 case West:
@@ -79,9 +85,11 @@ public class Car {
                     if (car.route == Route.LEFT && car.point.x + App.GAP <= App.WIDTH / 2) {
                         car.direction = Direction.North;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.x <= App.WIDTH / 2) {
                         car.direction = Direction.South;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     }
                     break;
                 case East:
@@ -89,9 +97,11 @@ public class Car {
                     if (car.route == Route.LEFT && car.point.x >= App.WIDTH / 2) {
                         car.direction = Direction.South;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     } else if (car.route == Route.RIGHT && car.point.x + App.GAP >= App.WIDTH / 2) {
                         car.direction = Direction.North;
                         car.route = Route.STRAIGHT;
+                        car.isPassed = true;
                     }
                     break;
             }
