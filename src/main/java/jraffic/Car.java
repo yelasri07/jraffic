@@ -9,6 +9,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Car {
     public Point point;
+    private int id;
     private Rectangle box;
     private Direction direction;
     private Route route;
@@ -20,6 +21,7 @@ public class Car {
     public Car(Point point, Direction direction, Pane pane) {
         this.point = point;
         this.direction = direction;
+        this.id = cars.size();
 
         int randomRout = (int) Math.round(Math.random() * 2);
         if (randomRout == 0) {
@@ -44,9 +46,15 @@ public class Car {
     }
 
     public static void update() {
+        // List<Light> lights = Light.lights;
+
         for (Car car : cars) {
             switch (car.direction) {
                 case South:
+                    if (!isSafePosition(car, car.direction) || (car.point.y <= (App.HEIGHT / 2) + App.GAP)) {
+                        break;
+                    }
+
                     car.point.y--;
                     if (car.route == Route.LEFT && car.point.y + App.GAP <= App.HEIGHT / 2) {
                         car.direction = Direction.West;
@@ -104,6 +112,27 @@ public class Car {
                 return false;
             } else if (direction == Direction.West && car.direction == Direction.West
                     && point.x < car.point.x + GAP_BETWEEN_CARS) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isSafePosition(Car currentCar, Direction direction) {
+        for (Car car : cars) {
+            if (direction == Direction.South && car.direction == Direction.South && currentCar.id > car.id
+                    && currentCar.point.y < car.point.y + GAP_BETWEEN_CARS) {
+                        
+                return false;
+            } else if (direction == Direction.North && car.direction == Direction.North
+                    && currentCar.point.y + GAP_BETWEEN_CARS > car.point.y) {
+                return false;
+            } else if (direction == Direction.East && car.direction == Direction.East
+                    && currentCar.point.x + GAP_BETWEEN_CARS > car.point.x) {
+                return false;
+            } else if (direction == Direction.West && car.direction == Direction.West
+                    && currentCar.point.x < car.point.x + GAP_BETWEEN_CARS) {
                 return false;
             }
         }

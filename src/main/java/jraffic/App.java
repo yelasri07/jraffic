@@ -20,8 +20,8 @@ public class App extends Application {
         Roads roads = new Roads();
         roads.draw(pane);
 
-        Light light = new Light();
-        light.draw(pane);
+        new Light(pane);
+        Light.update();
 
         Scene scene = new Scene(pane, WIDTH, HEIGHT, Color.BLACK);
 
@@ -51,6 +51,7 @@ public class App extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                Light.update();
                 Car.update();
             }
         };
