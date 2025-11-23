@@ -1,5 +1,3 @@
-package jraffic;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -9,8 +7,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application {
-    public static final int WIDTH = 900;
-    public static final int HEIGHT = 700;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 600;
     public static final int GAP = 50;
 
     @Override
@@ -59,7 +57,11 @@ public class App extends Application {
         timer.start();
 
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setX(100);
+        stage.setY(100);
+        stage.setMinWidth(WIDTH);
+        stage.setMinHeight(HEIGHT);
+        // stage.setResizable(false);
         stage.show();
     }
 
