@@ -17,9 +17,31 @@ JTraffic simulates a busy intersection where cars approach from four directions 
 
 ## Prerequisites
 
-- Java 21 or later
+- Java 17 or later
 - Maven 3.6 or later
-- JavaFX 21 (automatically managed by Maven)
+- JavaFX 17 (automatically managed by Maven)
+
+### Installing Maven
+
+If Maven is not installed, you can install it manually:
+
+```bash
+wget https://dlcdn.apache.org/maven/maven-3/3.8.9/binaries/apache-maven-3.8.9-bin.tar.gz
+```
+
+```bash
+tar -xvzf apache-maven-3.8.9-bin.tar.gz
+mv apache-maven-3.8.9 ~/maven
+```
+
+```bash
+echo 'export PATH=~/maven/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+```
+
+```bash
+mvn -v
+```
 
 ## Installation
 
@@ -29,7 +51,7 @@ JTraffic simulates a busy intersection where cars approach from four directions 
    cd jraffic
    ```
 
-2. Ensure Java 21+ and Maven are installed:
+2. Ensure Java 17+ and Maven are installed:
    ```bash
    java -version
    mvn -version
@@ -101,7 +123,7 @@ src/
 
 ## Dependencies
 
-- **JavaFX 21**: For GUI and graphics
+- **JavaFX 17**: For GUI and graphics
 - **JUnit**: For unit testing (if tests are added)
 
 All dependencies are managed through Maven and specified in `pom.xml`.
@@ -127,7 +149,7 @@ Currently, the project does not include automated tests, but you can manually te
 
 ### Common Issues
 
-- **Application doesn't start**: Ensure Java 21+ and Maven are installed
+- **Application doesn't start**: Ensure Java 17+ and Maven are installed
 - **GUI doesn't appear**: Check if JavaFX is properly configured
 - **Cars don't move**: Traffic lights might be red; wait for green
 - **Performance issues**: Reduce window size in Config.java
