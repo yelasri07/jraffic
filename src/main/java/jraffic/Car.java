@@ -16,7 +16,8 @@ public class Car {
     private Color color;
     private boolean isPassed;
 
-    private static final int GAP_BETWEEN_CARS = 70;
+    private static final int GAP_BETWEEN_CARS = 100;
+    private static final int SPEED = 5;
     public static List<Car> cars = new ArrayList<>();
 
     public Car(Point point, Direction direction, Pane pane) {
@@ -50,9 +51,6 @@ public class Car {
     }
 
     public static void update() {
-
-        System.out.println(Roads.numberCars);
-
         for (Car car : cars) {
             int nbCars = Roads.numberCars.get(car.direction);
 
@@ -63,7 +61,7 @@ public class Car {
                         break;
                     }
 
-                    car.point.y--;
+                    car.point.y -= SPEED;
 
                     if (!car.isPassed && car.point.y <= (App.HEIGHT / 2)) {
                         if (nbCars > 0)
@@ -86,7 +84,7 @@ public class Car {
                         break;
                     }
 
-                    car.point.y++;
+                    car.point.y += SPEED;
 
                     if (!car.isPassed && car.point.y + App.GAP >= (App.HEIGHT / 2)) {
                         if (nbCars > 0)
@@ -108,7 +106,7 @@ public class Car {
                         break;
                     }
 
-                    car.point.x--;
+                    car.point.x -= SPEED;
 
                     if (!car.isPassed && car.point.x <= (App.WIDTH / 2)) {
                         if (nbCars > 0)
@@ -130,7 +128,7 @@ public class Car {
                         break;
                     }
 
-                    car.point.x++;
+                    car.point.x += SPEED;
 
                     if (!car.isPassed && car.point.x + App.GAP >= (App.WIDTH / 2)) {
                         if (nbCars > 0)

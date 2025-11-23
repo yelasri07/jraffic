@@ -73,4 +73,19 @@ public class Roads {
                 this.centerHorizontalLine,
                 this.rightHorizontalLine);
     }
+
+    public static boolean isEmptyCenter() {
+        int top = (App.HEIGHT / 2) - App.GAP;
+        int bottom = (App.HEIGHT / 2) + App.GAP;
+        int left = (App.WIDTH / 2) - App.GAP;
+        int right = (App.WIDTH / 2) + App.GAP;
+
+        for (Car car : Car.cars) {
+            if (car.point.x + App.GAP > left && car.point.x < right && car.point.y + App.GAP > top
+                    && car.point.y < bottom)
+                return false;
+        }
+
+        return true;
+    }
 }
