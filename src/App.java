@@ -47,8 +47,20 @@ public class App extends Application {
         });
 
         AnimationTimer timer = new AnimationTimer() {
+            private static final long FRAME_NANOS = 8_333_333L;
+            private long lastUpdate = 0;
+
             @Override
             public void handle(long now) {
+                if (lastUpdate == 0) {
+                    lastUpdate = now;
+                }
+
+                if (now - lastUpdate < FRAME_NANOS) {
+                    return;
+                }
+
+                lastUpdate = now;
                 Light.update();
                 Car.update();
             }
